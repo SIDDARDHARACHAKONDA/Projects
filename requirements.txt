@@ -9,3 +9,4 @@ xgboost==1.7.6
 matplotlib==3.8.2
 seaborn==0.13.0
 psycopg[binary]==3.1.18
+gunicorn==21.2.0
