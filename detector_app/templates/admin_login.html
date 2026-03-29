@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Login - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-admin-login">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security Admin</div>
+            <div class="menu">
+                <a href="/">Home</a>
+                <a href="/login/">User Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page page--center">
+        <div class="container container--narrow">
+            <h2>Admin Login</h2>
+            <form method="post" class="form">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="admin-username">Username</label>
+                    <input id="admin-username" type="text" name="username" required>
+                </div>
+                <div class="field">
+                    <label for="admin-password">Password</label>
+                    <input id="admin-password" type="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn--block">Login</button>
+            </form>
+
+            {% if error %}
+            <p class="alert alert--error">{{ error }}</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

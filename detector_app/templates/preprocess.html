@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Preprocess Dataset - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-preprocess">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security Admin</div>
+            <div class="menu">
+                <a href="/admin-dashboard/">Dashboard</a>
+                <a href="/upload/">Upload</a>
+                <a href="/train/">Train</a>
+                <a href="/compare/">Compare</a>
+                <a href="/admin-users/">Manage Users</a>
+                <a href="/admin-history/">Detection History</a>
+                <a href="/prediction-analysis/">Analysis</a>
+                <a href="/admin-logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="container container--wide">
+            <h2>Preprocess Dataset</h2>
+            <form method="post" class="form">
+                {% csrf_token %}
+                <button type="submit" class="btn">Run Preprocessing</button>
+            </form>
+
+            {% if headers %}
+                <h3>Preprocessed Data Preview</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            {% for h in headers %}
+                                <th>{{ h }}</th>
+                            {% endfor %}
+                        </tr>
+
+                        {% for row in rows %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell|floatformat:4 }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-admin-dashboard">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security Admin</div>
+            <div class="menu">
+                <a href="/upload/">Upload</a>
+                <a href="/preprocess/">Preprocess</a>
+                <a href="/train/">Train</a>
+                <a href="/compare/">Compare</a>
+                <a href="/admin-users/">Manage Users</a>
+                <a href="/admin-history/">Detection History</a>
+                <a href="/prediction-analysis/">Analysis</a>
+                <a href="/admin-logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="hero">
+            <div>
+                <p class="eyebrow">Admin Dashboard</p>
+                <h1>Real-Time IoMT Anomaly Detection</h1>
+                <p class="lead">Select an operation below to start analyzing and securing IoMT network data.</p>
+                <div class="hero-actions">
+                    <a href="/upload/" class="btn">Upload Dataset</a>
+                    <a href="/train/" class="btn btn--ghost">Start Training</a>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Quick Guide</h3>
+                <p><strong>1. Upload</strong> the latest IoMT dataset.</p>
+                <p><strong>2. Preprocess</strong> to clean and scale features.</p>
+                <p><strong>3. Train</strong> models and review metrics.</p>
+                <p><strong>4. Compare</strong> results to select the best model.</p>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h3>Upload Dataset</h3>
+                <p>Upload your IoMT network dataset and preview the data.</p>
+                <a href="/upload/" class="btn">Open</a>
+            </div>
+
+            <div class="card">
+                <h3>Preprocess Data</h3>
+                <p>Clean, encode, and normalize the uploaded dataset.</p>
+                <a href="/preprocess/" class="btn">Open</a>
+            </div>
+
+            <div class="card">
+                <h3>Train Algorithms</h3>
+                <p>Train ML models and view accuracy, precision, and F1 score.</p>
+                <a href="/train/" class="btn">Open</a>
+            </div>
+
+            <div class="card">
+                <h3>Compare Models</h3>
+                <p>Visual comparison of algorithm performance.</p>
+                <a href="/compare/" class="btn">Open</a>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-box">
+                <h2>Admin Utilities</h2>
+                <p>Manage access and review system intelligence.</p>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h3>Manage Users</h3>
+                <p>Review user accounts and access control.</p>
+                <a href="/admin-users/" class="btn">Open</a>
+            </div>
+
+            <div class="card">
+                <h3>Detection History</h3>
+                <p>Audit detections and review recent incidents.</p>
+                <a href="/admin-history/" class="btn">Open</a>
+            </div>
+
+            <div class="card">
+                <h3>Prediction Analysis</h3>
+                <p>Visualize prediction distribution and trends.</p>
+                <a href="/prediction-analysis/" class="btn">Open</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

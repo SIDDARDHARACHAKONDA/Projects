@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-dashboard">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security Dashboard</div>
+            <div class="menu">
+                <a href="/detect-batch/">Multi Detect</a>
+                <a href="/detect/">Detection</a>
+                <a href="/logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="welcome">
+            <h2>Welcome to Real-Time IoMT Anomaly Detection</h2>
+            <p>Select an operation below to start analyzing and securing IoMT network data.</p>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h3>Real-Time Detection</h3>
+                <p>Predict whether new traffic is Normal or an Attack.</p>
+                <a href="/detect/" class="btn">Open</a>
+            </div>
+
+            <div class="card">
+                <h3>Batch Detection</h3>
+                <p>Upload CSV file and detect attacks for all records.</p>
+                <a href="/detect-batch/" class="btn">Open</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

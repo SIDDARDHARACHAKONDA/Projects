@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detection History - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-admin-history">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security Admin</div>
+            <div class="menu">
+                <a href="/admin-dashboard/">Dashboard</a>
+                <a href="/upload/">Upload</a>
+                <a href="/preprocess/">Preprocess</a>
+                <a href="/train/">Train</a>
+                <a href="/compare/">Compare</a>
+                <a href="/admin-users/">Manage Users</a>
+                <a href="/prediction-analysis/">Analysis</a>
+                <a href="/admin-logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="container container--wide">
+            <h2>Detection History</h2>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>User</th>
+                        <th>Dur</th>
+                        <th>Spkts</th>
+                        <th>Dpkts</th>
+                        <th>Prediction</th>
+                        <th>Date</th>
+                    </tr>
+
+                    {% for h in history %}
+                    <tr>
+                        <td>{{ h.user.username }}</td>
+                        <td>{{ h.dur }}</td>
+                        <td>{{ h.spkts }}</td>
+                        <td>{{ h.dpkts }}</td>
+                        <td>{{ h.prediction }}</td>
+                        <td>{{ h.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

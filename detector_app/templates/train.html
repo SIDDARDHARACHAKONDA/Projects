@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Train Algorithms - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-train">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security Admin</div>
+            <div class="menu">
+                <a href="/admin-dashboard/">Dashboard</a>
+                <a href="/upload/">Upload</a>
+                <a href="/preprocess/">Preprocess</a>
+                <a href="/compare/">Compare</a>
+                <a href="/admin-users/">Manage Users</a>
+                <a href="/admin-history/">Detection History</a>
+                <a href="/prediction-analysis/">Analysis</a>
+                <a href="/admin-logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="container container--wide">
+            <h2>Train Machine Learning Algorithms</h2>
+            <form method="post" class="form">
+                {% csrf_token %}
+                <button type="submit" class="btn">Start Training</button>
+            </form>
+
+            {% if results %}
+                <h3>Performance Metrics</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>Algorithm</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1 Score</th>
+                        </tr>
+                        {% for r in results %}
+                        <tr>
+                            <td>{{ r.name }}</td>
+                            <td>{{ r.acc }}</td>
+                            <td>{{ r.prec }}</td>
+                            <td>{{ r.rec }}</td>
+                            <td>{{ r.f1 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                {% for r in results %}
+                <div class="model-block">
+                    <h3>{{ r.name }} Confusion Matrix</h3>
+                    <div class="heatmap">
+                        <img src="data:image/png;base64,{{ r.heatmap }}" alt="Confusion Matrix">
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

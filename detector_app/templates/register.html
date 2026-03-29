@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-register">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security</div>
+            <div class="menu">
+                <a href="/">Home</a>
+                <a href="/login/">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page page--center">
+        <div class="container container--narrow">
+            <h2>Create Account</h2>
+            <form method="post" class="form">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="username" required>
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" required>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" required>
+                </div>
+                <div class="field">
+                    <label for="mobile">Mobile Number</label>
+                    <input id="mobile" type="text" name="mobile">
+                </div>
+                <div class="field">
+                    <label for="address">Address</label>
+                    <input id="address" type="text" name="address">
+                </div>
+                <button type="submit" class="btn btn--block">Register</button>
+            </form>
+
+            <div class="form-meta">
+                Already have an account? <a href="/login/">Login</a>
+            </div>
+
+            {% if error %}
+            <p class="alert alert--error">{{ error }}</p>
+            {% endif %}
+
+            {% if success %}
+            <p class="alert alert--success">{{ success }}</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prediction Analysis - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="page-prediction">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security Admin</div>
+            <div class="menu">
+                <a href="/admin-dashboard/">Dashboard</a>
+                <a href="/upload/">Upload</a>
+                <a href="/preprocess/">Preprocess</a>
+                <a href="/train/">Train</a>
+                <a href="/compare/">Compare</a>
+                <a href="/admin-users/">Manage Users</a>
+                <a href="/admin-history/">Detection History</a>
+                <a href="/admin-logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="container container--wide">
+            <h2>Attack Prediction Analysis</h2>
+            <div class="chart-box">
+                <canvas id="attackChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const labels = {{ labels|safe }};
+        const values = {{ values|safe }};
+
+        new Chart(document.getElementById("attackChart"), {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Number of Detections",
+                    data: values,
+                    backgroundColor: [
+                        "#0b3d91",
+                        "#ff6384",
+                        "#36a2eb",
+                        "#ffce56",
+                        "#4bc0c0",
+                        "#9966ff",
+                        "#ff9f40"
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

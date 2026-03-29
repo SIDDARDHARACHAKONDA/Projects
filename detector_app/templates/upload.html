@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload Dataset - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-upload">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security Admin</div>
+            <div class="menu">
+                <a href="/admin-dashboard/">Dashboard</a>
+                <a href="/preprocess/">Preprocess</a>
+                <a href="/train/">Train</a>
+                <a href="/compare/">Compare</a>
+                <a href="/admin-users/">Manage Users</a>
+                <a href="/admin-history/">Detection History</a>
+                <a href="/prediction-analysis/">Analysis</a>
+                <a href="/admin-logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="container container--wide">
+            <h2>Upload Dataset</h2>
+            <form method="post" enctype="multipart/form-data" class="upload-box">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="dataset">Select CSV File</label>
+                    <input id="dataset" type="file" name="dataset" accept=".csv" required>
+                </div>
+                <button type="submit" class="btn">Upload &amp; Preview</button>
+            </form>
+
+            {% if headers %}
+            <h3>Dataset Preview</h3>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        {% for h in headers %}
+                        <th>{{ h }}</th>
+                        {% endfor %}
+                    </tr>
+
+                    {% for row in rows %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="pagination">
+                {% if has_prev %}
+                    <a href="?page={{ page|add:"-1" }}">Previous</a>
+                {% endif %}
+                {% if has_next %}
+                    <a href="?page={{ page|add:"1" }}">Next</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

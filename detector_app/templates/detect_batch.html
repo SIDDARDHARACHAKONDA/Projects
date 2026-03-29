@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Batch Detection - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-detect-batch">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security</div>
+            <div class="menu">
+                <a href="/dashboard/">Dashboard</a>
+                <a href="/detect/">Detection</a>
+                <a href="/logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="container container--wide">
+            <h2>Upload CSV for Batch Prediction</h2>
+            <form method="post" enctype="multipart/form-data" class="form">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="csv_file">CSV File</label>
+                    <input id="csv_file" type="file" name="csv_file" accept=".csv" required>
+                </div>
+                <button type="submit" class="btn">Predict</button>
+            </form>
+
+            {% if results %}
+                <h3>Prediction Results</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            {% for h in headers %}
+                                <th>{{ h }}</th>
+                            {% endfor %}
+                            <th>Prediction</th>
+                        </tr>
+
+                        {% for row in results %}
+                        <tr>
+                            {% for cell in row.data %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                            <td><strong>{{ row.pred }}</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

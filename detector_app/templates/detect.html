@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Real-Time Detection - IoMT Security</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-detect">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security</div>
+            <div class="menu">
+                <a href="/dashboard/">Dashboard</a>
+                <a href="/detect-batch/">Multi Detect</a>
+                <a href="/logout/">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="container container--wide">
+            <h2>Real-Time Anomaly Detection</h2>
+            <form method="post" class="form">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="dur">Duration (dur)</label>
+                        <input id="dur" type="text" name="dur" required>
+                    </div>
+                    <div class="field">
+                        <label for="spkts">Source Packets (spkts)</label>
+                        <input id="spkts" type="text" name="spkts" required>
+                    </div>
+                    <div class="field">
+                        <label for="dpkts">Destination Packets (dpkts)</label>
+                        <input id="dpkts" type="text" name="dpkts" required>
+                    </div>
+                    <div class="field">
+                        <label for="sbytes">Source Bytes (sbytes)</label>
+                        <input id="sbytes" type="text" name="sbytes" required>
+                    </div>
+                    <div class="field">
+                        <label for="dbytes">Destination Bytes (dbytes)</label>
+                        <input id="dbytes" type="text" name="dbytes" required>
+                    </div>
+                    <div class="field">
+                        <label for="rate">Rate</label>
+                        <input id="rate" type="text" name="rate" required>
+                    </div>
+                    <div class="field">
+                        <label for="sttl">Source TTL (sttl)</label>
+                        <input id="sttl" type="text" name="sttl" required>
+                    </div>
+                    <div class="field">
+                        <label for="dttl">Destination TTL (dttl)</label>
+                        <input id="dttl" type="text" name="dttl" required>
+                    </div>
+                    <div class="field">
+                        <label for="sload">Source Load (sload)</label>
+                        <input id="sload" type="text" name="sload" required>
+                    </div>
+                    <div class="field">
+                        <label for="dload">Destination Load (dload)</label>
+                        <input id="dload" type="text" name="dload" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Run Detection</button>
+            </form>
+
+            {% if result %}
+                {% if result == "Normal" %}
+                <div class="result normal">
+                    &#10003; Traffic Status: NORMAL
+                </div>
+                {% else %}
+                <div class="result attack">
+                    &#9888; Detected Attack Type: {{ result }}
+                </div>
+                {% endif %}
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

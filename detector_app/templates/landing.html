@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IoMT Anomaly Detection</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="page-landing">
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">IoMT Security</div>
+            <div class="menu">
+                <a href="/admin-login/">Admin</a>
+                <a href="/register/">Register</a>
+                <a href="/login/">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <section class="hero">
+            <div>
+                <h1>Real-Time IoMT Anomaly Detection</h1>
+                <p>
+                    Secure medical IoT networks using Machine Learning based real-time
+                    detection of cyber attacks and abnormal behavior.
+                </p>
+                <div class="hero-actions">
+                    <a href="/login/" class="btn">Get Started</a>
+                    <a href="/register/" class="btn btn--ghost">Create Account</a>
+                </div>
+            </div>
+            <div class="hero-media">
+                <img src="{% static 'images/bg-hero.jpg' %}" alt="Medical cybersecurity illustration">
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        &copy; 2026 IoMT Anomaly Detection System
+    </footer>
+</body>
+</html>
