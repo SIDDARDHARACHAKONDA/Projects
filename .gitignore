@@ -4,3 +4,5 @@ media/
 *.csv
 
 *.csv
+__pycache__/
+*.pyc

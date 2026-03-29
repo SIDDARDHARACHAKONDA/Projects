@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 
 from dotenv import load_dotenv
+import dj_database_url
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,12 +27,28 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r1=2t$=yv4k^6@)3*4%u0)t*)te%&0lxwt_o=+e+#9l(8+m@w9'
+SECRET_KEY = os.getenv(
+    'SECRET_KEY',
+    'django-insecure-r1=2t$=yv4k^6@)3*4%u0)t*)te%&0lxwt_o=+e+#9l(8+m@w9',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True').strip().lower() in {'1', 'true', 'yes', 'on'}
 
-ALLOWED_HOSTS = ['projects-4-0kt0.onrender.com']
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv('ALLOWED_HOSTS', '').split(',')
+    if host.strip()
+]
+
+render_external_url = os.getenv('RENDER_EXTERNAL_URL')
+if render_external_url:
+    render_host = urlparse(render_external_url).hostname
+    if render_host:
+        ALLOWED_HOSTS.append(render_host)
+
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ['projects-4-0kt0.onrender.com']
 
 
 # Application definition
@@ -79,8 +97,20 @@ WSGI_APPLICATION = 'iomt_security.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASE_URL = os.getenv('DATABASE_URL')
 DB_ENGINE = os.getenv('DB_ENGINE')
-if DB_ENGINE:
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,
+        )
+    }
+elif DB_ENGINE or os.getenv('DB_HOST'):
+    if not DB_ENGINE:
+        DB_ENGINE = 'django.db.backends.postgresql'
+
     db_options = {}
     if DB_ENGINE.startswith('django.db.backends.postgresql'):
         db_sslmode = os.getenv('DB_SSLMODE', 'require')
@@ -106,6 +136,12 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
+    if origin.strip()
+]
 
 
 # Password validation
