@@ -252,6 +252,7 @@ def compare_view(request):
 import numpy as np
 import joblib
 import logging
+import threading
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import DetectionHistory
@@ -311,7 +312,7 @@ def detect_view(request):
             result = "Error: " + str(e)
         else:
             # Send email alert if attack detected
-            if result != "Normal":
+            if result != "Normal" and settings.ALERT_EMAIL_ENABLED:
 
                 subject = "IoMT Security Alert"
 
@@ -336,16 +337,20 @@ Please investigate immediately.
 IoMT Security System
 """
 
-                try:
-                    send_mail(
-                        subject,
-                        message,
-                        settings.EMAIL_HOST_USER,
-                        ['admin@example.com'],  # admin email
-                        fail_silently=False,
-                    )
-                except Exception as e:
-                    logger.warning("Email alert failed: %s", e, exc_info=True)
+                def _send_alert_email():
+                    try:
+                        send_mail(
+                            subject,
+                            message,
+                            settings.EMAIL_HOST_USER,
+                            ['admin@example.com'],  # admin email
+                            fail_silently=False,
+                        )
+                    except Exception as e:
+                        logger.warning("Email alert failed: %s", e, exc_info=True)
+
+                # Send email in background to avoid request timeouts in production.
+                threading.Thread(target=_send_alert_email, daemon=True).start()
 
     return render(request, 'detect.html', {"result": result})
 

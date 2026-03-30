@@ -195,3 +195,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_TIMEOUT = int(os.getenv('EMAIL_TIMEOUT', '10'))
+
+# Allows disabling alert emails in environments where SMTP is blocked.
+ALERT_EMAIL_ENABLED = os.getenv('ALERT_EMAIL_ENABLED', 'True').strip().lower() in {'1', 'true', 'yes', 'on'}
